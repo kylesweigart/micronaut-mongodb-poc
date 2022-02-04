@@ -1,7 +1,6 @@
 package com.vertex.custom;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
@@ -14,12 +13,16 @@ public class PartyIdentification {
     private String id;
 
 
-
-
     @BsonCreator
     public PartyIdentification(@BsonProperty("ID") String id) {
         this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }

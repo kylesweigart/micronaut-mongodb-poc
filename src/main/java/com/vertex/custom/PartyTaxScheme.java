@@ -1,17 +1,13 @@
 package com.vertex.custom;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 import org.bson.codecs.pojo.annotations.BsonCreator;
-import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
-
-import java.io.Serializable;
 
 @Introspected
 
-public class PartyTaxScheme  {
+public class PartyTaxScheme {
 
     @JsonProperty("CompanyID")
     @BsonProperty("CompanyID")
@@ -20,7 +16,6 @@ public class PartyTaxScheme  {
     @JsonProperty("TaxScheme")
     @BsonProperty(value = "TaxScheme")
     private TaxScheme taxScheme;
-
 
 
     @BsonCreator

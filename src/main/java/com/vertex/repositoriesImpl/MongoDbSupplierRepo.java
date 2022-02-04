@@ -5,12 +5,17 @@ import com.mongodb.reactivestreams.client.MongoCollection;
 import com.vertex.configuration.IMongoDbConfiguration;
 import com.vertex.dataTransferObjects.AccountingSupplierPartyDto;
 import com.vertex.repositories.ISupplierRepository;
+import com.vertex.util.SupplierDtoToDocument;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.http.HttpStatus;
 import jakarta.inject.Singleton;
+import lombok.extern.slf4j.Slf4j;
+import org.bson.Document;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
 @Singleton
+@Slf4j
 public class MongoDbSupplierRepo implements ISupplierRepository {
 
     private final IMongoDbConfiguration mongoDbConfig;
@@ -22,22 +27,22 @@ public class MongoDbSupplierRepo implements ISupplierRepository {
     }
 
     @Override
-    public Mono<Boolean> save(AccountingSupplierPartyDto supplierPartyDto) {
-        return Mono.from(getCollection().insertOne(supplierPartyDto)).map(insertOneResult -> Boolean.TRUE)
-                .onErrorReturn(Boolean.FALSE);
+    public Mono<HttpStatus> save(AccountingSupplierPartyDto supplierPartyDto) {
+        log.info("Calling MongoDbRepoIml.save(). Saving supplierDTO to the 'supplier' collection: {}",
+                supplierPartyDto);
+        return Mono.from(getCollection().insertOne(SupplierDtoToDocument.dtoToDoc(supplierPartyDto)))
+                .map(insertOneResult -> HttpStatus.CREATED).onErrorReturn(HttpStatus.SERVICE_UNAVAILABLE);
     }
 
     @Override
     @NonNull
-    public Publisher<AccountingSupplierPartyDto> list() {
+    public Publisher<Document> list() {
         return getCollection().find();
     }
 
     @NonNull
-    private MongoCollection<AccountingSupplierPartyDto> getCollection() {
+    private MongoCollection<Document> getCollection() {
         return mongoClient.getDatabase(mongoDbConfig.getName()).getCollection(mongoDbConfig.getCollection(),
-                AccountingSupplierPartyDto.class);
+                Document.class);
     }
-
-
 }
