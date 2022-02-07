@@ -4,6 +4,9 @@ import com.vertex.dataTransferObjects.AccountingSupplierPartyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 
+/**
+ * This utility class converts a data transfer object into a Document object.
+ */
 @Slf4j
 public class SupplierDtoToDocument {
     public static Document dtoToDoc(AccountingSupplierPartyDto supplierPartyDto) {

@@ -10,6 +10,9 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This interface defines all methods used on the Supplier Repository found in the MongoDB database.
+ */
 public interface ISupplierRepository {
 
     Publisher<Document> list();

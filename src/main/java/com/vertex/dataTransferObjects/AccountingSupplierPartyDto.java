@@ -6,7 +6,11 @@ import io.micronaut.core.annotation.Introspected;
 import org.bson.codecs.pojo.annotations.BsonCreator;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
-
+/**
+ * The AccountingSupplierPartyDto class is a data structure that is made up of all fields found in the
+ * AccountingSupplierParty group within the e-invoicing JSON file.
+ * The @Introspected annotation produces a BeanIntrospection at compilation time.
+ */
 @Introspected
 public class AccountingSupplierPartyDto {
 
